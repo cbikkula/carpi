@@ -92,6 +92,43 @@ behind the dash.
 
 ---
 
+## Optional — Add a backup / dash camera
+
+OpenDash's camera page is a *viewer*, so you just give it a video source. Pick one:
+
+### A) A USB camera (simplest)
+1. Plug the **USB camera into any Pi USB-A port** (the phone uses one too — the Pi 4 has
+   four, so both fit).
+2. Confirm the Pi sees it (SSH in):
+   ```bash
+   ls /dev/video*            # expect /dev/video0 (or similar)
+   v4l2-ctl --list-devices   # shows the camera's name + device path
+   ```
+3. On the dashboard, open the **Camera** page → choose **Local**, select the device →
+   **Connect**. You should see the live view.
+
+### B) Reuse the car's existing reversing camera
+Same as above, but the camera's analog (composite) wire goes into a **composite→USB
+capture dongle**, and the **dongle** plugs into the Pi's USB-A port. To the Pi it looks
+just like a USB camera (`/dev/video0`) — follow steps 2–3 above.
+
+### C) A network (IP) camera
+On the **Camera** page choose **Network** and enter an **RTSP** URL
+(`rtsp://user:pass@192.168.1.50:554/stream`). No USB cable needed.
+
+**Pre-set it without the UI (optional):** the source is stored in
+`~/.config/openDsh/dash.conf` — `Pages/Camera/local_device=/dev/video0`, or
+`Pages/Camera/stream_url=rtsp://…` with `Pages/Camera/is_network=true`.
+
+**Mounting:** for an actual *reversing* camera, use a weatherproof one at the rear and
+run its cable forward to the Pi — a bare USB webcam is only fine for a forward/dash view.
+
+> ⚠️ The camera is a **manual screen** — open the Camera page to see it. OpenDash does
+> **not** auto-switch to it when you shift into reverse; that needs extra CAN-bus/GPIO
+> wiring (a future add-on).
+
+---
+
 ## Troubleshooting
 
 | Symptom | Fix |
@@ -104,6 +141,7 @@ behind the dash.
 | **Lightning-bolt icon / random reboots** | Under-voltage — your power supply is too weak. See WIRING.md §2. `vcgencmd get_throttled` (0x0 = healthy). |
 | **Build failed / out of memory** | Confirm swap is 2 GB (`free -h`), then re-run provision.sh — it's idempotent and skips finished steps. |
 | **Android Auto wired support changed** | Newer phones/AA versions can be finicky over USB; make sure the phone's AA app is up to date and "Add new cars" was enabled before first plug-in. |
+| **Camera not listed / no `/dev/video0`** | Re-seat the USB camera/capture dongle; `ls /dev/video*` and `dmesg | tail` after plugging in. Use a USB 2.0 (black) port if a cheap dongle won't enumerate on USB 3.0. For RTSP, test the URL with `ffplay rtsp://…` first. |
 
 ---
 
