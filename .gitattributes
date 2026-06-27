@@ -1,0 +1,9 @@
+# Shell scripts must stay LF — they run on Linux (Raspberry Pi) and are fetched
+# via `curl | bash`. CRLF would break the shebang.
+*.sh        text eol=lf
+*.rules     text eol=lf
+*.service   text eol=lf
+provision.sh text eol=lf
+
+# Docs: normalize to LF in the repo too (consistent raw output)
+*.md        text eol=lf
