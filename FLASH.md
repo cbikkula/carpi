@@ -1,7 +1,8 @@
 # Flash & Setup (from a Windows PC)
 
-Goal: a microSD that boots a Raspberry Pi straight into the OpenDash Android Auto
-dashboard. Plug in the phone, drive.
+Goal: a microSD that boots a Raspberry Pi straight into a full car infotainment
+dashboard (OpenDash) with Android Auto — navigation, music, calls, voice, and room to
+add a backup camera and live vehicle data later. Plug in the phone, drive.
 
 You do this in two stages because **OpenDash is built from source on the Pi** (there's
 no prebuilt image), and the very first boot can't reach the network early enough to

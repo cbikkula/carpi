@@ -1,7 +1,9 @@
 # Wiring, Power & Specs
 
-Everything physical: what to buy, how it connects, how to power it from the car
-without corrupting the SD card. Read this once before you cut any wires.
+Everything physical for a full car infotainment build: what to buy, how it connects,
+and how to power it from the car without corrupting the SD card. The core parts get you
+navigation/music/calls/voice; the optional parts (USB camera, OBD-II adapter) unlock the
+backup-camera and live-vehicle-data features. Read this once before you cut any wires.
 
 > ⚠️ **Working on a car's 12 V system can blow fuses, drain the battery, or start a
 > fire if done wrong.** Fuse everything close to the source, never feed raw 12 V
@@ -28,7 +30,9 @@ without corrupting the SD card. Read this once before you cut any wires.
 | **Primary wire** | **18 AWG** (or thicker 16 AWG) for the 12 V run; keep the 5 V run short. |
 | **Clean-shutdown device** | A **supercapacitor UPS HAT** (best for a car — survives thousands of power cycles, tolerates heat) **or** a latching car-power board (Mausberry, OnOff SHIM). Holds 5 V up for the ~10–30 s the Pi needs to halt after key-off. |
 
-### Optional
+### Optional — unlock the extra head-unit features
+- **USB camera** — for a **backup / dash camera** view (OpenDash supports a camera input). Any UVC-class USB camera works; a wide-angle reversing camera is ideal.
+- **OBD-II adapter** — for **live vehicle data & gauges** (RPM, coolant, boost, fault codes) via CAN bus. A USB or Bluetooth ELM327-style adapter plugged into the car's OBD-II port.
 - **Ignition-sense parts** — voltage divider + clamp diode, or an opto-isolator/relay, to feed the switched-12 V "key-on" signal **safely down to 3.3 V** into GPIO3 for auto power-on/off.
 - **Cooling** — a heatsink/fan; a sealed box in a hot car can thermal-throttle independent of power.
 
@@ -136,6 +140,6 @@ the non-root dashboard claim the phone after it switches into accessory mode.
 - Wide-input (8–32 V) automotive **12 V→5 V / 3 A USB-C** buck converter
 - **Supercap UPS HAT** (or Mausberry / OnOff SHIM latching board)
 - Add-a-fuse tap + **5 A** blade fuse, 18 AWG wire, crimp connectors
-- (Optional) ignition-sense level-shift bits, heatsink/fan
+- (Optional) USB camera (backup cam), OBD-II adapter (vehicle data), ignition-sense level-shift bits, heatsink/fan
 - Official Pi 15 W (Pi 4) / 27 W (Pi 5) USB-C PSU — handy on the bench to confirm the
   build is healthy before it goes in the car

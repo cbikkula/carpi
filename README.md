@@ -1,31 +1,44 @@
 # carpi 🚗📱
 
-Turn a **Raspberry Pi** into a **wired Android Auto head unit** for your car — boots
-straight into the [OpenDash](https://github.com/openDsh/dash) dashboard, powered from
-the cigarette-lighter / 12 V circuit, with your phone connected over USB.
+**A full car infotainment system — built on a Raspberry Pi for a fraction of the cost
+of a factory or aftermarket head unit.**
 
-Plug your phone in → Maps/Waze, media, calls, and voice on the dash screen. No
-subscription, no proprietary head unit.
+Navigation, music, hands-free calls, voice control, backup camera, live vehicle data —
+everything a modern car's touchscreen does. You flash a Pi, run one command, and it
+boots straight into the [OpenDash](https://github.com/openDsh/dash) dashboard with
+Android Auto. Plug your phone in and drive.
+
+No subscription. No proprietary head unit. No installer markup.
 
 ---
 
-## What it is
+## Everything your car's screen does — for ~$120 instead of $500–$1,500
 
-- A **flash-and-go recipe**, not a custom map app. You flash Raspberry Pi OS, run
-  one command, and the Pi becomes an Android Auto receiver running OpenDash.
-- **Wired Android Auto** over USB (the reliable path). The Pi is the USB *host*; your
-  phone projects Android Auto to the Pi's screen, exactly like a factory head unit.
-- Designed to live in a car: dedicated kiosk session, 12 V power guidance, and a
-  **clean-shutdown** path so ignition-off doesn't corrupt the SD card.
+| Capability | How |
+|---|---|
+| 🗺️ **Navigation + live traffic** | Google Maps / Waze via Android Auto |
+| 🎵 **Music & media** | Phone apps, Bluetooth audio, local files |
+| 📞 **Hands-free calls & texts** | Android Auto |
+| 🎙️ **Voice control** | "Hey Google" through Android Auto |
+| 🚀 **Boots to the dashboard** | Dedicated kiosk — on with the car, no menus |
 
-### What you get
-✅ Google Maps / Waze with live traffic (from the phone) &nbsp; ✅ Voice commands
-&nbsp; ✅ Media & calls &nbsp; ✅ Boots to the dashboard automatically
+**Add a little hardware and it does the rest a head unit does** (all supported by OpenDash):
 
-### What it is **not** (yet)
-- Not a custom map UI — it shows **Android Auto's own interface**. (A custom overlay
-  is a future layer to build *on top of* this working base.)
-- Not wireless — wired USB is what this targets; wireless AA on a Pi 4 is flaky.
+| Capability | Add-on |
+|---|---|
+| 🎥 **Backup / dash camera** | A USB camera |
+| 📊 **Live vehicle data & gauges** (RPM, coolant, boost, fault codes) | A cheap **OBD-II** adapter (CAN bus) |
+| 🎛️ **Steering-wheel button control** | GPIO wiring |
+| 🌗 **Custom themes, day/night, dark mode** | Built in — just configure |
+
+### What it costs vs. the alternatives
+| Option | Typical cost |
+|---|---|
+| Factory infotainment upgrade (dealer) | $1,000–$2,500+ |
+| Aftermarket CarPlay/Android Auto unit **+ professional install** | $300–$1,500 |
+| **carpi** (Pi 4 + 7" touchscreen + power + cabling) | **~$100–$150** |
+
+Same core experience — the screen, the maps, the music, the voice — at parts cost.
 
 ---
 
@@ -52,8 +65,23 @@ Full step-by-step (with options and troubleshooting) is in **[FLASH.md](FLASH.md
 - USB-C→USB-A **data** cable (phone → Pi)
 - Automotive **12 V→5 V / 3 A** USB-C buck converter + **5 A** fuse + a
   **supercap/UPS** for clean shutdown
+- *(Optional)* USB camera, OBD-II adapter — to unlock the extra features above
 
 Full specs, the wiring diagram, and a buy-list are in **[WIRING.md](WIRING.md)**.
+
+---
+
+## Good to know
+
+- **It runs Android Auto's interface**, not a bespoke skin — which is *why* it does
+  everything your phone's nav/media/voice can, with zero app development. A custom UI
+  or extra dashboard widgets are an optional layer to build *on top of* this working
+  base later (OpenDash is fully themeable and extensible).
+- **Wired** is the target (rock-solid). Wireless Android Auto on a Pi 4 is possible but
+  flaky, so this setup uses a USB cable.
+- A few things still belong to the car itself (AM/FM tuner, OEM amplifier integration);
+  carpi covers the touchscreen-infotainment half — the part that actually costs money
+  to replace.
 
 ---
 
@@ -89,6 +117,7 @@ Full specs, the wiring diagram, and a buy-list are in **[WIRING.md](WIRING.md)**
 ## Credits & caveats
 
 Built on **[OpenDash](https://github.com/openDsh/dash)** (which bundles OpenAuto +
-AASDK). Android Auto is a trademark of Google; this is an unofficial
-open-source receiver. Wired AA behavior can change with phone/Android Auto updates.
-Do the 12 V wiring carefully — see the safety notes in WIRING.md.
+AASDK) — a full open-source car infotainment platform. Android Auto is a trademark of
+Google; this is an unofficial open-source receiver. Wired AA behavior can change with
+phone/Android Auto updates. Do the 12 V wiring carefully — see the safety notes in
+WIRING.md.
