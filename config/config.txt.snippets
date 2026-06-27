@@ -1,0 +1,49 @@
+# =============================================================================
+#  config.txt reference snippets for the carpi head unit
+# -----------------------------------------------------------------------------
+#  On a running Bookworm Pi this file lives at /boot/firmware/config.txt
+#  When the SD card is in a Windows PC it's at the ROOT of the small "bootfs"
+#  drive. provision.sh applies the right pieces automatically; this file is for
+#  reference / manual editing.
+#
+#  IMPORTANT: under the default KMS driver (dtoverlay=vc4-kms-v3d) the OLD
+#  rotation keys (display_rotate / display_hdmi_rotate / display_lcd_rotate)
+#  ARE SILENTLY IGNORED for the desktop. Rotate the display + touch in the
+#  graphics session instead (provision.sh does this in ~/.xinitrc via xrandr +
+#  xinput). config.txt only forces the *mode*, not rotation.
+# =============================================================================
+
+
+# ---- (A) Generic 7" HDMI touchscreen ----------------------------------------
+# Forces output + a fixed mode so the screen works with no/garbled EDID and with
+# no monitor attached when you flash. Adjust hdmi_cvt to your panel (W H Hz aspect;
+# aspect 6 = 15:9, common on 1024x600 panels; 3 = 16:9).
+dtoverlay=vc4-kms-v3d
+max_framebuffers=2
+disable_overscan=1
+hdmi_force_hotplug=1
+hdmi_group=2
+hdmi_mode=87
+hdmi_cvt=1024 600 60 6 0 0 0
+
+
+# ---- (B) Official Raspberry Pi DSI touchscreen ------------------------------
+# display_auto_detect=1 (default on Bookworm) loads the right DSI overlay
+# automatically; no manual dtoverlay needed and touch follows the rotation.
+# dtoverlay=vc4-kms-v3d
+# max_framebuffers=2
+# display_auto_detect=1
+
+
+# ---- (C) Clean shutdown on ignition-off -------------------------------------
+# Pulling GPIO3 (physical pin 5) LOW issues a proper `shutdown -h` (NOT a hard
+# power cut). Wire your ignition-sense signal here — LEVEL-SHIFTED TO 3.3V, never
+# raw 12V/5V onto a GPIO — and keep 5V alive through the ~10–30s halt with a
+# supercap/UPS HAT or a latching car-power board. See WIRING.md.
+dtoverlay=gpio-shutdown,gpio_pin=3,active_low=1,gpio_pull=up
+
+
+# ---- (D) Pi 5 ONLY: running on a 3A (not 5A) car supply ----------------------
+# Suppress the boot warning and accept the 600mA USB-peripheral limit. Do NOT add
+# this on a Pi 4 (it doesn't use it). Prefer a true 5A/USB-PD source on a Pi 5.
+# usb_max_current_enable=1

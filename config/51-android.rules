@@ -1,0 +1,18 @@
+# Android Auto over USB — udev rule
+# -----------------------------------------------------------------------------
+# Install to: /etc/udev/rules.d/51-android.rules   (provision.sh does this for you)
+#
+# Why: a wired Android Auto head unit makes the Raspberry Pi the USB HOST and the
+# phone a USB ACCESSORY. AASDK/OpenAuto talk to the phone in userspace via libusb.
+# When AASDK flips the phone into Android Open Accessory (AOAv2) mode, the phone
+# RE-ENUMERATES under Google's vendor id 0x18d1 (product ids 0x2d00–0x2d05). The
+# non-root dash process then needs permission to claim that device node, or you
+# get  LIBUSB_ERROR_ACCESS / "insufficient permissions"  and AA never starts.
+#
+# This grants the 'plugdev' group access to the accessory-mode device.
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0664", GROUP="plugdev"
+
+# Optional: also cover your phone's ORIGINAL vendor id (before the mode switch),
+# in case it needs claiming pre-switch. Find it with: lsusb   (left of the colon)
+#   Samsung   = 04e8     Google/Pixel = 18d1     OnePlus = 2a70 ...
+# SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0664", GROUP="plugdev"

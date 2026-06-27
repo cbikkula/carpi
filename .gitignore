@@ -1,0 +1,17 @@
+# Secrets — never commit
+.env
+*.key
+.waze-key
+**/.waze-key
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Build / runtime artifacts (if you clone dash alongside)
+dash/
+*.log
