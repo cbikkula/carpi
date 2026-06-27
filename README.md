@@ -68,6 +68,17 @@ Full step-by-step (with options and troubleshooting) is in **[FLASH.md](FLASH.md
 - *(Optional)* a camera (USB, or your car's existing reversing camera via a capture
   dongle), OBD-II adapter — to unlock the extra features above
 
+### Cables you need (the 3 connections to the Pi)
+| Connection | Cable | Into the Pi's… |
+|---|---|---|
+| 📱 **Phone** | **USB-A ↔ USB-C *data* cable** (USB-C to phone) | a **USB-A** port (not the USB-C port!) |
+| 🔌 **Power** | USB-C from the 12 V→5 V converter | the **USB-C** power port |
+| 🖥️ **Screen** | HDMI cable **or** the DSI ribbon | HDMI port / DSI connector |
+
+> The phone goes in a **USB-A** port because the Pi is the USB *host*. Use a **data**
+> cable (charge-only won't work), and **don't** plug the phone into the Pi's USB-C port —
+> that's power-in. A USB-C-to-USB-C cable into the Pi won't work for the phone.
+
 Full specs, the wiring diagram, and a buy-list are in **[WIRING.md](WIRING.md)**.
 
 ---
