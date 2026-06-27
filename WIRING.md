@@ -31,7 +31,20 @@ backup-camera and live-vehicle-data features. Read this once before you cut any 
 | **Clean-shutdown device** | A **supercapacitor UPS HAT** (best for a car — survives thousands of power cycles, tolerates heat) **or** a latching car-power board (Mausberry, OnOff SHIM). Holds 5 V up for the ~10–30 s the Pi needs to halt after key-off. |
 
 ### Optional — unlock the extra head-unit features
-- **USB camera** — for a **backup / dash camera** view (OpenDash supports a camera input). Any UVC-class USB camera works; a wide-angle reversing camera is ideal.
+- **Backup / dash camera** — OpenDash's camera page is a *viewer*, so it needs a real
+  video source. Three ways to feed it:
+  - **Car already has a reversing camera?** Reuse it — most factory cameras are analog
+    composite, so add a cheap **composite→USB capture dongle** (~$10). It shows up as a
+    `/dev/video` device. No new camera needed.
+  - **Car has none?** Add a cheap one: any **USB/UVC webcam** (~$10–25, plug-and-play),
+    or an **aftermarket reversing camera** (~$15–30, weatherproof, license-plate/rear
+    mount) + the same composite→USB dongle. Better suited to the rear of a car than a webcam.
+  - **IP camera:** OpenDash also accepts a network **RTSP** stream (`rtsp://…`).
+  Note: there's **no automatic reverse-gear trigger** — the camera is a manual screen
+  (auto-popping it on reverse would need extra CAN/GPIO wiring). You pick the source in
+  the OpenDash camera page; to pre-set it, the keys live in `~/.config/openDsh/dash.conf`
+  (`Pages/Camera/local_device` for a `/dev/video*` device, `Pages/Camera/stream_url` +
+  `Pages/Camera/is_network=true` for RTSP).
 - **OBD-II adapter** — for **live vehicle data & gauges** (RPM, coolant, boost, fault codes) via CAN bus. A USB or Bluetooth ELM327-style adapter plugged into the car's OBD-II port.
 - **Ignition-sense parts** — voltage divider + clamp diode, or an opto-isolator/relay, to feed the switched-12 V "key-on" signal **safely down to 3.3 V** into GPIO3 for auto power-on/off.
 - **Cooling** — a heatsink/fan; a sealed box in a hot car can thermal-throttle independent of power.
@@ -140,6 +153,8 @@ the non-root dashboard claim the phone after it switches into accessory mode.
 - Wide-input (8–32 V) automotive **12 V→5 V / 3 A USB-C** buck converter
 - **Supercap UPS HAT** (or Mausberry / OnOff SHIM latching board)
 - Add-a-fuse tap + **5 A** blade fuse, 18 AWG wire, crimp connectors
-- (Optional) USB camera (backup cam), OBD-II adapter (vehicle data), ignition-sense level-shift bits, heatsink/fan
+- (Optional) backup camera — reuse the car's existing one via a composite→USB capture
+  dongle, or add a USB/aftermarket reversing camera if not equipped; OBD-II adapter
+  (vehicle data); ignition-sense level-shift bits; heatsink/fan
 - Official Pi 15 W (Pi 4) / 27 W (Pi 5) USB-C PSU — handy on the bench to confirm the
   build is healthy before it goes in the car

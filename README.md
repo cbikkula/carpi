@@ -26,7 +26,7 @@ No subscription. No proprietary head unit. No installer markup.
 
 | Capability | Add-on |
 |---|---|
-| 🎥 **Backup / dash camera** | A USB camera |
+| 🎥 **Backup / dash camera** | Reuse your car's **existing reversing camera** (~$10 composite→USB dongle), or add a cheap **USB / aftermarket reversing camera** if it has none — or an **RTSP IP camera**. ~$10–40 either way. |
 | 📊 **Live vehicle data & gauges** (RPM, coolant, boost, fault codes) | A cheap **OBD-II** adapter (CAN bus) |
 | 🎛️ **Steering-wheel button control** | GPIO wiring |
 | 🌗 **Custom themes, day/night, dark mode** | Built in — just configure |
@@ -65,7 +65,8 @@ Full step-by-step (with options and troubleshooting) is in **[FLASH.md](FLASH.md
 - USB-C→USB-A **data** cable (phone → Pi)
 - Automotive **12 V→5 V / 3 A** USB-C buck converter + **5 A** fuse + a
   **supercap/UPS** for clean shutdown
-- *(Optional)* USB camera, OBD-II adapter — to unlock the extra features above
+- *(Optional)* a camera (USB, or your car's existing reversing camera via a capture
+  dongle), OBD-II adapter — to unlock the extra features above
 
 Full specs, the wiring diagram, and a buy-list are in **[WIRING.md](WIRING.md)**.
 
@@ -79,6 +80,9 @@ Full specs, the wiring diagram, and a buy-list are in **[WIRING.md](WIRING.md)**
   base later (OpenDash is fully themeable and extensible).
 - **Wired** is the target (rock-solid). Wireless Android Auto on a Pi 4 is possible but
   flaky, so this setup uses a USB cable.
+- **The backup camera is a manual screen** — OpenDash shows the camera when you open its
+  page, but it does **not** auto-pop when you shift into reverse (a factory unit does).
+  Adding a real reverse-gear trigger needs extra CAN-bus/GPIO wiring — a future add-on.
 - A few things still belong to the car itself (AM/FM tuner, OEM amplifier integration);
   carpi covers the touchscreen-infotainment half — the part that actually costs money
   to replace.
