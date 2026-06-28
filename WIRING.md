@@ -51,6 +51,32 @@ backup-camera and live-vehicle-data features. Read this once before you cut any 
 
 ---
 
+## 1b. A verified example build (real parts)
+
+A worked example, with the gotchas called out. Use it as a template — exact models go
+in and out of stock, so match the **specs**, not the link.
+
+| Part | Pick | Verdict | Notes |
+|---|---|---|---|
+| **Screen** | 7" HDMI **touchscreen**, 1024×600 IPS (HMTECH / Waveshare etc.) | ✅ **must be touch** | ⚠️ A *non-touch* 7" panel will boot but you **can't operate Android Auto** — touch is the only way in. "HDMI for video, USB for touch." If it's 800×480, set `CARPI_HDMI_MODE="800 480 60 6"`. |
+| **Power** | Anker PowerDrive III Duo (40 W USB-C PD) | ✅ usually OK | USB-C port gives 5 V/3 A as its base contract, enough for a Pi 4. Watch for the lightning-bolt icon. Gives **no clean-shutdown** on its own — see §3. |
+| **Camera** | NexiGo N60 USB webcam (1080p, 110°, built-in mic) | ✅ dash cam / 🎙️ mic | Real UVC webcam → `/dev/video0`, plug-and-play. **Not weatherproof** — fine forward-facing, *not* for an exposed rear mount. Bonus: its mic doubles as the **Android Auto microphone** (voice + calls). |
+| **USB extension** | 20 ft USB-A male→female, data | ✅ for the camera | Extends the webcam's reach. 20 ft passive is long — if the cam glitches, suspect the cable length first. |
+| **Phone cable** | USB-A → USB-C **data** cable | ✅ essential | The A-to-A extension does **not** connect the phone. USB-A into the Pi, USB-C into the phone. |
+| **Power cable** | USB-C → USB-C cable | ✅ needed | From the Anker USB-C port to the Pi's USB-C power port. |
+| **GPS** | Onyehn VK-162 USB GPS | ⚪ not needed now | Android Auto uses the **phone's** GPS. Only useful later for an on-Pi custom map. Skip for the AA build. |
+| **Mount** | (the 4.3"/5" monitor bracket won't fit) | ❌ wrong size | Get a mount sized for the **7" screen** (vent / CD-slot / dash). The small backup-monitor bracket is for 4.3–5" displays, not a 7" panel, and isn't a camera mount either. |
+
+### How you interact with it
+- **Touch the dash screen** — primary input for both OpenDash and Android Auto (this is
+  why the screen *must* be touch).
+- **Voice** — "Hey Google" via Android Auto, using any USB mic (the NexiGo webcam's mic works).
+- **Your phone stays in your pocket** — when AA is active the phone screen locks; the
+  phone is the brain (GPS, data, music), not the remote. You drive everything from the dash.
+- **Optional later:** steering-wheel buttons via GPIO.
+
+---
+
 ## 2. Why not "just a USB car charger"?
 
 A Pi 4 wants a clean **5.1 V at up to 3 A**. In a car you get:

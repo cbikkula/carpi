@@ -40,6 +40,12 @@ No subscription. No proprietary head unit. No installer markup.
 
 Same core experience — the screen, the maps, the music, the voice — at parts cost.
 
+### How you control it
+You **touch the dash screen** (so the screen *must* be a touchscreen) and use **voice**
+("Hey Google" via Android Auto, through any USB mic). Your **phone stays in your
+pocket** — while Android Auto is active its screen locks; the phone is just the brain
+(GPS, data, music), not the remote. Exactly like a factory head unit.
+
 ---
 
 ## Quick start
